@@ -1,41 +1,39 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Application, CommandHandler, CallbackContext
 
-# Funzione per gestire il comando /start
-def start(update: Update, context: CallbackContext) -> None:
-    # Crea i bottoni con link
+# Function to handle the /start command
+async def start(update: Update, context: CallbackContext) -> None:
+    # Define the buttons with links
     keyboard = [
-        [InlineKeyboardButton("prova1", url="https://www.github.com")],
-        [InlineKeyboardButton("prova2", url="https://www.github.com")]
+        [InlineKeyboardButton("Google", url="https://www.google.com")],
+        [InlineKeyboardButton("GitHub", url="https://www.github.com")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Messaggio di benvenuto con bottoni
-    update.message.reply_text(
-        "Benvenuto nel mio bot! Scegli un'opzione cliccando sui bottoni:",
+    # Send a message with buttons
+    await update.message.reply_text(
+        text="stronzo prova",
         reply_markup=reply_markup
     )
 
-# Funzione principale
-def main():
-    # Inserisci il tuo token fornito da BotFather
-    TOKEN = "7818231062:AAGdNO37LZzT1kpnhX8M4sD0sE9XjSeH8CoT"
+# Main function to run the bot
+async def main():
+    # Insert your BotFather token here
+    TOKEN = "7818231062:AAGdNO37LZzT1kpnhX8M4sD0sE9XjSeH8Co"
 
-    # Crea l'oggetto Updater
-    updater = Updater(TOKEN)
+    # Create the Application
+    application = Application.builder().token(TOKEN).build()
 
-    # Aggiungi il comando /start
-    updater.dispatcher.add_handler(CommandHandler("start", start))
+    # Add the /start command handler
+    application.add_handler(CommandHandler("start", start))
 
-    # Avvia il bot
-    print("Il bot è in esecuzione...")
-    updater.start_polling()
-
-    # Mantieni il bot attivo
-    updater.idle()
+    # Start the bot
+    print("Bot is running...")
+    await application.run_polling()
 
 if __name__ == "__main__":
-    main()
+    import asyncio
+    asyncio.run(main())
 
 
 
