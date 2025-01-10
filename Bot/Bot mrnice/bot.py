@@ -19,7 +19,7 @@ def start(update: Update, context: CallbackContext) -> None:
 # Funzione principale
 def main():
     # Inserisci il tuo token fornito da BotFather
-    TOKEN = "IL_TUO_TOKEN_DEL_BOT"
+    TOKEN = "7818231062:AAGdNO37LZzT1kpnhX8M4sD0sE9XjSeH8Co"
 
     # Crea l'oggetto Updater
     updater = Updater(TOKEN)
