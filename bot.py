@@ -1,5 +1,6 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, CallbackContext
+import asyncio
 
 # Function to handle the /start command
 async def start(update: Update, context: CallbackContext) -> None:
@@ -12,7 +13,7 @@ async def start(update: Update, context: CallbackContext) -> None:
 
     # Send a message with buttons
     await update.message.reply_text(
-        text="stronzo prova",
+        text="Welcome to the bot! Choose one of the options below:",
         reply_markup=reply_markup
     )
 
@@ -31,9 +32,17 @@ async def main():
     print("Bot is running...")
     await application.run_polling()
 
+# Handle the running event loop
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except RuntimeError as e:
+        if "running event loop" in str(e):
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(main())
+        else:
+            raise
+
 
 
 
