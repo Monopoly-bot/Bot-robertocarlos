@@ -15,27 +15,25 @@ async def start(update: Update, context: CallbackContext) -> None:
         reply_markup=reply_markup
     )
 
-# Function to initialize the bot
+# Function to initialize and run the bot
 async def main():
-    import os
-    TOKEN = os.getenv("BOT_TOKEN")
-
+    TOKEN = "7818231062:AAGdNO37LZzT1kpnhX8M4sD0sE9XjSeH8Co"  # Replace with your BotFather token
     application = Application.builder().token(TOKEN).build()
 
+    # Add the /start command handler
     application.add_handler(CommandHandler("start", start))
 
     print("Bot is running...")
-    await application.initialize()
-    await application.start()
-    await application.updater.start_polling()
-    await application.updater.wait_for_stop()
-    await application.stop()
-    await application.shutdown()
+    # Start the bot with polling
+    await application.run_polling()
 
 if __name__ == "__main__":
-    # Use the current event loop instead of asyncio.run()
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    # Use the current event loop
+    try:
+        asyncio.get_event_loop().run_until_complete(main())
+    except KeyboardInterrupt:
+        print("Bot stopped.")
+
 
 
 
